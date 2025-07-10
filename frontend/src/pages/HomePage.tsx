@@ -67,7 +67,7 @@ const HomePage: React.FC = () => {
     fetchProducts();
   };
 
-  if (loading) return <div className="text-center mt-10">Loading...</div>;
+  if (loading) return <div className="text-center">Loading...</div>;
 
   return (
     <div className="max-w-7xl mx-auto p-4">
