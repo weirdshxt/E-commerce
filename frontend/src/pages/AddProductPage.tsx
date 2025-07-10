@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+// API Configuration - Change this for deployment
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
 import { imageOptions } from "./imageOptions";
 import type { ImageOption } from "./imageOptions";
 
@@ -25,7 +29,7 @@ const AddProductPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:4000/products")
+    fetch(`${API_BASE}/products`)
       .then((res) => res.json())
       .then((data) =>
         setCategories(Array.from(new Set(data.map((p: any) => p.category))))
@@ -72,7 +76,7 @@ const AddProductPage: React.FC = () => {
       return;
     }
     setSubmitting(true);
-    const res = await fetch("http://localhost:4000/products", {
+    const res = await fetch(`${API_BASE}/products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newProduct),
@@ -87,11 +91,10 @@ const AddProductPage: React.FC = () => {
 
   return (
     <div className="max-w-xl mx-auto p-4">
-      <h1 className="text-2xl sm:text-3xl font-semibold px-4 mb-6 text-green-900">Add New Product</h1>
-      <form
-        onSubmit={handleAddProduct}
-        className=" p-4 rounded-3xl mb-6"
-      >
+      <h1 className="text-2xl sm:text-3xl font-semibold px-4 mb-6 text-green-900">
+        Add New Product
+      </h1>
+      <form onSubmit={handleAddProduct} className=" p-4 rounded-3xl mb-6">
         <div className="mb-2">
           <label className="block mb-1 font-medium">Product Name</label>
           <input

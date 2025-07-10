@@ -3,6 +3,9 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAdmin } from "../context/AdminContext";
 import { SquarePen, Trash } from "lucide-react";
 
+// API Configuration - Change this for deployment
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
 interface Product {
   id: string;
   name: string;
@@ -33,7 +36,7 @@ const HomePage: React.FC = () => {
 
   const fetchProducts = () => {
     setLoading(true);
-    fetch("http://localhost:4000/products")
+    fetch(`${API_BASE}/products`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -59,7 +62,7 @@ const HomePage: React.FC = () => {
     if (!window.confirm("Are you sure you want to delete this product?"))
       return;
     setDeleting(id);
-    await fetch(`http://localhost:4000/products/${id}`, { method: "DELETE" });
+    await fetch(`${API_BASE}/products/${id}`, { method: "DELETE" });
     setDeleting(null);
     fetchProducts();
   };

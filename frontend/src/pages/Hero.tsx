@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import organic from "../assets/organic.png";
 
+// API Configuration - Change this for deployment
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
 interface Product {
   id: string;
   name: string;
@@ -22,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({ onCategorySelect }) => {
 
   useEffect(() => {
     // Fetch all products to determine best and categories
-    fetch("http://localhost:4000/products")
+    fetch(`${API_BASE}/products`)
       .then((res) => res.json())
       .then((data) => {
         // For demo: pick first 3 as best products
@@ -176,76 +179,88 @@ const Hero: React.FC<HeroProps> = ({ onCategorySelect }) => {
         </div>
       </section>
 
-    {/* Contact Form Section */}
-    <section id="contact" className="max-w-7xl flex items-center sm:flex-row flex-col mx-auto py-20 px-6 sm:px-0">
-      <div className="flex flex-col items-center w-full">
-      <h2 className="text-7xl sm:text-9xl font-semibold text-green-900 mb-2 text-center">
-        Get in
-      </h2>
-      <h2 className="text-7xl sm:text-9xl font-semibold text-green-900 mb-2 text-center">
-        Touch
-      </h2>
-      </div>
-      <div className="flex justify-center w-full">
-        <form
-          className="rounded-2xl px-8 pt-8 pb-8 w-full max-w-lg"
-          onSubmit={(e) => {
-            e.preventDefault();
-            // Simple alert for demo, aap yahan API call bhi kar sakte ho
-            alert("Shukriya! Hum jald hi aap se sampark karenge.");
-            (e.target as HTMLFormElement).reset();
-          }}
-        >
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-              Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded-3xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="name"
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-              Email
-            </label>
-            <input
-              className="shadow appearance-none border rounded-3xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="email"
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
-              Message
-            </label>
-            <textarea
-              className="shadow appearance-none border rounded-2xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="message"
-              name="message"
-              placeholder="Your Message"
-              rows={4}
-              required
-            ></textarea>
-          </div>
-          <div className="flex items-center justify-center">
-            <button
-              className="bg-green-700 hover:bg-green-800 text-white font-bold py-3 px-8 rounded-full focus:outline-none focus:shadow-outline transition"
-              type="submit"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-    </section>
+      {/* Contact Form Section */}
+      <section
+        id="contact"
+        className="max-w-7xl flex items-center sm:flex-row flex-col mx-auto py-20 px-6 sm:px-0"
+      >
+        <div className="flex flex-col items-center w-full">
+          <h2 className="text-7xl sm:text-9xl font-semibold text-green-900 mb-2 text-center">
+            Get in
+          </h2>
+          <h2 className="text-7xl sm:text-9xl font-semibold text-green-900 mb-2 text-center">
+            Touch
+          </h2>
+        </div>
+        <div className="flex justify-center w-full">
+          <form
+            className="rounded-2xl px-8 pt-8 pb-8 w-full max-w-lg"
+            onSubmit={(e) => {
+              e.preventDefault();
+              // Simple alert for demo, aap yahan API call bhi kar sakte ho
+              alert("Shukriya! Hum jald hi aap se sampark karenge.");
+              (e.target as HTMLFormElement).reset();
+            }}
+          >
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="name"
+              >
+                Name
+              </label>
+              <input
+                className="shadow appearance-none border rounded-3xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="name"
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="email"
+              >
+                Email
+              </label>
+              <input
+                className="shadow appearance-none border rounded-3xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+              />
+            </div>
+            <div className="mb-6">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="message"
+              >
+                Message
+              </label>
+              <textarea
+                className="shadow appearance-none border rounded-2xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="message"
+                name="message"
+                placeholder="Your Message"
+                rows={4}
+                required
+              ></textarea>
+            </div>
+            <div className="flex items-center justify-center">
+              <button
+                className="bg-green-700 hover:bg-green-800 text-white font-bold py-3 px-8 rounded-full focus:outline-none focus:shadow-outline transition"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
     </div>
   );
 };
