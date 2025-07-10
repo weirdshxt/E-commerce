@@ -20,19 +20,15 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onCategorySelect }) => {
   const [bestProducts, setBestProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch all products to determine best and categories
+    // Fetch all products to determine best products
     fetch(`${API_BASE}/products`)
       .then((res) => res.json())
       .then((data) => {
         // For demo: pick first 3 as best products
         setBestProducts(data.slice(0, 3));
-        setCategories(
-          Array.from(new Set(data.map((p: Product) => p.category)))
-        );
       });
   }, []);
 
@@ -95,7 +91,6 @@ const Hero: React.FC<HeroProps> = ({ onCategorySelect }) => {
 
       {/* Start by Category Section */}
       <section className="max-w-7xl mb-[10%] mx-auto px-6 sm:px-0">
-        
         <div className="flex flex-wrap gap-4 justify-center">
           {featuredCategories.map((cat, idx) => (
             <div
@@ -135,13 +130,15 @@ const Hero: React.FC<HeroProps> = ({ onCategorySelect }) => {
 
       {/* About Section */}
       <section id="about" className="max-w-7xl mx-auto py-20 px-6 sm:px-0">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-green-900 mb-2">About Us</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-green-900 mb-2">
+          About Us
+        </h2>
         <div className="flex items-center justify-center w-full py-20">
-        <p className="text-gray-700 text-3xl sm:text-6xl sm:w-[70%] w-[90%] text-center">
-          We are committed to providing the highest quality organic products
-          sourced from trusted farms and producers. Our mission is to make
-          healthy living accessible and enjoyable for everyone.
-        </p>
+          <p className="text-gray-700 text-3xl sm:text-6xl sm:w-[70%] w-[90%] text-center">
+            We are committed to providing the highest quality organic products
+            sourced from trusted farms and producers. Our mission is to make
+            healthy living accessible and enjoyable for everyone.
+          </p>
         </div>
       </section>
 
